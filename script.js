@@ -25,4 +25,25 @@ const setupCanvas = () => {
   }
 };
 
+const renderFood = (row, col) => {
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "red"
+  ctx.fillRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
+}
+
+const renderSnake = (row, col) => {
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "white"
+  ctx.fillRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
+}
+
+const renderBlank = (row, col) => {
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "black"
+  ctx.clearRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
+}
+
 setupCanvas();
+renderSnake(4, 3);
+renderFood(7, 3);
+renderSnake(5, 3);
