@@ -25,12 +25,6 @@ const setupCanvas = () => {
   }
 };
 
-const renderFood = (row, col) => {
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "red"
-  ctx.fillRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
-}
-
 const renderSnake = (row, col) => {
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = "white"
@@ -45,5 +39,7 @@ const renderBlank = (row, col) => {
 
 setupCanvas();
 renderSnake(4, 3);
-renderFood(7, 3);
 renderSnake(5, 3);
+const food = new Food(7, 3);
+food.deSpawn();
+new Food(1, 2);
