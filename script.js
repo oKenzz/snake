@@ -16,7 +16,6 @@ const setupCanvas = () => {
     ctx.stroke();
   }
 
-
   for (let column = 0; column < columns; column++) {
     ctx.beginPath();
     ctx.moveTo(column * gridSize, 0);
@@ -25,12 +24,6 @@ const setupCanvas = () => {
   }
 };
 
-const renderSnake = (row, col) => {
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "white"
-  ctx.fillRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
-}
-
 const renderBlank = (row, col) => {
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = "black"
@@ -38,8 +31,8 @@ const renderBlank = (row, col) => {
 }
 
 setupCanvas();
-renderSnake(4, 3);
-renderSnake(5, 3);
-const food = new Food(7, 3);
+new Snake(1, 3);
+const food = new Food(5, 3);
 food.deSpawn();
-new Food(1, 2);
+new Food(10, 5);
+
