@@ -1,7 +1,5 @@
 class Snake {
   constructor(row, col) {
-    this.row = row;
-    this.col = col;
     this.direction = "RIGHT";
     this.body = [];
     this.body.push({ row, col });
@@ -14,6 +12,10 @@ class Snake {
 
   grow() {
     // TODO:
+  }
+
+  update() {
+
   }
 
   // TODO: Modify for rendering every part of the snake

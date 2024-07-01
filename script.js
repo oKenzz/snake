@@ -1,5 +1,11 @@
 const canvas = document.getElementById('board');
 const gridSize = 50;
+const direction = {
+  UP: { x: 0, y: -1 },
+  RIGHT: { x: 1, y: 0 },
+  DOWN: { x: 0, y: 1 },
+  LEFT: { x: -1, y: 0 }
+}
 
 const setupCanvas = () => {
   canvas.setAttribute("width", "600");
@@ -32,7 +38,5 @@ const renderBlank = (row, col) => {
 
 setupCanvas();
 new Snake(1, 3);
-const food = new Food(5, 3);
-food.deSpawn();
-new Food(10, 5);
+const food = new Food(7, 3);
 
