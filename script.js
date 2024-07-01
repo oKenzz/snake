@@ -1,6 +1,6 @@
 const canvas = document.getElementById('board');
 const gridSize = 50;
-const direction = {
+const DIRECTIONS = {
   UP: { x: 0, y: -1 },
   RIGHT: { x: 1, y: 0 },
   DOWN: { x: 0, y: 1 },
@@ -37,6 +37,12 @@ const renderBlank = (row, col) => {
 }
 
 setupCanvas();
-new Snake(1, 3);
+const snake = new Snake(1, 3);
 const food = new Food(7, 3);
 
+gameLoop = () => {
+  snake.update();
+  snake.renderSnake();
+}
+
+setInterval(gameLoop, 1000);
