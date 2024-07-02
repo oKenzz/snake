@@ -30,6 +30,29 @@ const setupCanvas = () => {
   }
 };
 
+const setupEventListeners = () => {
+  document.addEventListener("keydown", (e) => setDirection(e))
+}
+
+const setDirection = (e) => {
+  switch (e.key) {
+    case "w":
+      snake.setDirection("UP");
+      break;
+    case "A":
+      snake.setDirection("LEFT");
+      break;
+    case "S":
+      snake.setDirection("DOWN");
+      break;
+    case "D":
+      snake.setDirection("RIGHT");
+      break;
+    default:
+      break;
+  }
+}
+
 const renderBlank = (row, col) => {
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = "black"
@@ -37,6 +60,7 @@ const renderBlank = (row, col) => {
 }
 
 setupCanvas();
+setupEventListeners();
 const snake = new Snake(1, 3);
 const food = new Food(7, 3);
 
