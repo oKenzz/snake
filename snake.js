@@ -7,10 +7,6 @@ class Snake {
     this.renderSnake();
   }
 
-  move() {
-    // TODO:
-  }
-
   setDirection(direction) {
     this.direction = direction;
   }
