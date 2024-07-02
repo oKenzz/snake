@@ -38,21 +38,14 @@ const setupEventListeners = () => {
 }
 
 const setDirection = (e) => {
-  switch (e.key) {
-    case "w":
-      snake.setDirection("UP");
-      break;
-    case "a":
-      snake.setDirection("LEFT");
-      break;
-    case "s":
-      snake.setDirection("DOWN");
-      break;
-    case "d":
-      snake.setDirection("RIGHT");
-      break;
-    default:
-      break;
+  if (e.key == "w" && snake.direction != "DOWN") {
+    snake.setDirection("UP");
+  } else if (e.key == "a" && snake.direction != "RIGHT") {
+    snake.setDirection("LEFT");
+  } else if (e.key == "s" && snake.direction != "UP") {
+    snake.setDirection("DOWN");
+  } else if (e.key == "d" && snake.direction != "LEFT") {
+    snake.setDirection("RIGHT");
   }
 }
 

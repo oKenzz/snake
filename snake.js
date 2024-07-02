@@ -1,6 +1,7 @@
 class Snake {
   constructor(x, y) {
     this.direction = "RIGHT";
+    this.nextDirection = "RIGHT";
     this.body = [];
     this.head = { x, y };
     this.body.push(this.head);
@@ -8,7 +9,7 @@ class Snake {
   }
 
   setDirection(direction) {
-    this.direction = direction;
+    this.nextDirection = direction;
   }
 
   grow() {
@@ -18,6 +19,7 @@ class Snake {
   }
 
   update() {
+    this.direction = this.nextDirection;
     for (let i = 0; i < this.body.length; i++) {
       let currentHead = this.body[i];
       let newHead = { x: currentHead.x + DIRECTIONS[this.direction].x, y: currentHead.y + DIRECTIONS[this.direction].y };
