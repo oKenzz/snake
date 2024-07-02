@@ -67,9 +67,17 @@ const initializeEntities = () => {
   food = new Food(7, 5);
 }
 
+checkFoodCollision = () => {
+  if (snake.head.x == food.x && snake.head.y == food.y) {
+    return true;
+  }
+  return false;
+}
+
 gameLoop = () => {
   try {
     snake.update();
+    console.log(checkFoodCollision());
   } catch (error) {
     console.log(error.message);
     clearInterval(timer);
