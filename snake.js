@@ -23,6 +23,11 @@ class Snake {
     let currentHead = this.head;
     let newHead = { x: currentHead.x + DIRECTIONS[this.direction].x, y: currentHead.y + DIRECTIONS[this.direction].y };
 
+    const collisionDetected = this.checkCollision(newHead);
+    if (collisionDetected) {
+      throw new Error("Collision Detected, Game Over!")
+    }
+
     // Add the new head to the beginning of the snake
     renderBlank(currentHead.x, currentHead.y);
     this.body.unshift(newHead);
@@ -30,7 +35,15 @@ class Snake {
     // Remove the tail segment
     this.body.pop();
     this.head = newHead;
+
     this.renderSnake();
+  }
+
+  checkCollision(newHead) {
+    if (newHead.x > 11 || newHead.x < 0 || newHead.y > 11 || newHead.y < 0) {
+      return true;
+    }
+    return false;
   }
 
   // TODO: Modify for rendering every part of the snake

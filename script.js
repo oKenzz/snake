@@ -31,7 +31,7 @@ const setupCanvas = () => {
 };
 
 const setupEventListeners = () => {
-  document.addEventListener("keydown", (e) => setDirection(e))
+  document.addEventListener("keypress", (e) => setDirection(e))
 }
 
 const setDirection = (e) => {
@@ -59,14 +59,19 @@ const renderBlank = (row, col) => {
   ctx.clearRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
 }
 
+gameLoop = () => {
+  try {
+    snake.update();
+  } catch (error) {
+    console.log(error.message);
+    clearInterval(timer);
+  }
+}
+
 setupCanvas();
 setupEventListeners();
 const snake = new Snake(1, 3);
 const food = new Food(7, 3);
 
-gameLoop = () => {
-  snake.update();
-  snake.renderSnake();
-}
 
-setInterval(gameLoop, 1000);
+const timer = setInterval(gameLoop, 500);
