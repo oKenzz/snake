@@ -74,10 +74,19 @@ checkFoodCollision = () => {
   return false;
 }
 
+const spawnFood = () => {
+  const randomX = Math.floor(Math.random() * 11) + 1;
+  const randomY = Math.floor(Math.random() * 11) + 1;
+  food = new Food(randomX, randomY);
+}
+
 gameLoop = () => {
   try {
     snake.update();
-    console.log(checkFoodCollision());
+    foodCollisionDetected = checkFoodCollision();
+    if (foodCollisionDetected) {
+      spawnFood();
+    }
   } catch (error) {
     console.log(error.message);
     clearInterval(timer);
