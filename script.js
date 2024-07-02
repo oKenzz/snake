@@ -59,14 +59,44 @@ const renderBlank = (x, y) => {
 
 const initializeEntities = () => {
   snake = new Snake(1, 5);
-  food = new Food();
+  food = new Food(7, 5);
 }
 
-checkFoodCollision = () => {
+const checkFoodCollision = () => {
   if (snake.head.x == food.x && snake.head.y == food.y) {
     return true;
   }
   return false;
+}
+
+const generateCoordinates = () => {
+  const rows = canvas.height / gridSize;
+  const columns = canvas.width / gridSize;
+  const allCoordinates = new Set();
+  for (let row = 0; row < rows; row++) {
+    for (let column = 0; column < columns; column++) {
+      allCoordinates.add(`${row},${column}`);
+    }
+  }
+
+  for (let part of snake.body) {
+    const x = part.x;
+    const y = part.y;
+    allCoordinates.delete(`${x},${y}`);
+  }
+  return allCoordinates;
+}
+
+const spawnFood = () => {
+  const availableCoordinates = generateCoordinates();
+  const coordinatesArray = Array.from(availableCoordinates);
+
+  // Select a random index from the array
+  const randomIndex = Math.floor(Math.random() * coordinatesArray.length);
+
+  // Get the random coordinate string and split it to get x and y
+  const [randomX, randomY] = coordinatesArray[randomIndex].split(',').map(Number);
+  food = new Food(randomX, randomY);
 }
 
 gameLoop = () => {
@@ -74,7 +104,7 @@ gameLoop = () => {
     snake.update();
     foodCollisionDetected = checkFoodCollision();
     if (foodCollisionDetected) {
-      food = new Food();
+      spawnFood();
       snake.grow();
     }
   } catch (error) {
