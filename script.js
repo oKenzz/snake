@@ -39,13 +39,13 @@ const setDirection = (e) => {
     case "w":
       snake.setDirection("UP");
       break;
-    case "A":
+    case "a":
       snake.setDirection("LEFT");
       break;
-    case "S":
+    case "s":
       snake.setDirection("DOWN");
       break;
-    case "D":
+    case "d":
       snake.setDirection("RIGHT");
       break;
     default:
