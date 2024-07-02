@@ -99,7 +99,7 @@ const spawnFood = () => {
   food = new Food(randomX, randomY);
 }
 
-gameLoop = () => {
+const gameLoop = () => {
   try {
     snake.update();
     foodCollisionDetected = checkFoodCollision();
