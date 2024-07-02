@@ -86,6 +86,7 @@ gameLoop = () => {
     foodCollisionDetected = checkFoodCollision();
     if (foodCollisionDetected) {
       spawnFood();
+      snake.grow();
     }
   } catch (error) {
     console.log(error.message);
