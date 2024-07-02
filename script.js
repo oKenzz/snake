@@ -51,10 +51,10 @@ const setDirection = (e) => {
   }
 }
 
-const renderBlank = (row, col) => {
+const renderBlank = (x, y) => {
   const ctx = canvas.getContext("2d");
   ctx.fillStyle = "black"
-  ctx.clearRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
+  ctx.clearRect(x * 50 + 1, y * 50 + 1, gridSize - 2, gridSize - 2);
 }
 
 const initializeEntities = () => {
@@ -87,4 +87,4 @@ setupCanvas();
 initializeEntities();
 setupEventListeners();
 
-const timer = setInterval(gameLoop, 200);
+const timer = setInterval(gameLoop, 175);
