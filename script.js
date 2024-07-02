@@ -10,6 +10,8 @@ const DIRECTIONS = {
 let snake;
 let food;
 
+// TODO: Point system
+
 const setupCanvas = () => {
   canvas.setAttribute("width", "600");
   canvas.setAttribute("height", "600");
@@ -57,7 +59,7 @@ const renderBlank = (row, col) => {
 
 const initializeEntities = () => {
   snake = new Snake(1, 5);
-  food = new Food(7, 5);
+  food = new Food();
 }
 
 checkFoodCollision = () => {
@@ -67,18 +69,13 @@ checkFoodCollision = () => {
   return false;
 }
 
-const spawnFood = () => {
-  const randomX = Math.floor(Math.random() * 11) + 1;
-  const randomY = Math.floor(Math.random() * 11) + 1;
-  food = new Food(randomX, randomY);
-}
 
 gameLoop = () => {
   try {
     snake.update();
     foodCollisionDetected = checkFoodCollision();
     if (foodCollisionDetected) {
-      spawnFood();
+      food = new Food();
       snake.grow();
     }
   } catch (error) {

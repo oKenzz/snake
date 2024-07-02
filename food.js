@@ -1,7 +1,13 @@
 class Food {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor() {
+    this.x;
+    this.y;
+    this.spawnFood();
+  }
+
+  spawnFood() {
+    this.x = Math.floor(Math.random() * 11) + 1;
+    this.y = Math.floor(Math.random() * 11) + 1;
     this.renderFood();
   }
 

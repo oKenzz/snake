@@ -50,12 +50,15 @@ class Snake {
     return false;
   }
 
+  checkSelfCollision() {
+    // TODO:
+  }
+
   renderSnake() {
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "white";
     for (let part of this.body) {
       ctx.fillRect(part.x * 50 + 1, part.y * 50 + 1, gridSize - 2, gridSize - 2);
     }
-
   }
 }
