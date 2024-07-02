@@ -9,10 +9,9 @@ const DIRECTIONS = {
 
 let snake;
 let food;
+let points = 0;
 
 let timer;
-
-// TODO: Point system
 
 const setupCanvas = () => {
   canvas.setAttribute("width", "600");
@@ -107,16 +106,20 @@ const gameLoop = () => {
     snake.update();
     foodCollisionDetected = checkFoodCollision();
     if (foodCollisionDetected) {
-      spawnFood();
+      points += 1;
+      console.log(points);
       snake.grow();
+      spawnFood();
     }
   } catch (error) {
     console.log(error.message);
     clearInterval(timer);
+    console.log("You got " + points + " points");
   }
 }
 
 const start = () => {
+  points = 0;
   setupCanvas();
   initializeEntities();
   setupEventListeners();
