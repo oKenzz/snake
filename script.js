@@ -93,10 +93,8 @@ const spawnFood = () => {
   const availableCoordinates = generateCoordinates();
   const coordinatesArray = Array.from(availableCoordinates);
 
-  // Select a random index from the array
   const randomIndex = Math.floor(Math.random() * coordinatesArray.length);
 
-  // Get the random coordinate string and split it to get x and y
   const [randomX, randomY] = coordinatesArray[randomIndex].split(',').map(Number);
   food = new Food(randomX, randomY);
 }
