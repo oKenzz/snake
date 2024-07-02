@@ -91,4 +91,4 @@ setupCanvas();
 initializeEntities();
 setupEventListeners();
 
-const timer = setInterval(gameLoop, 500);
+const timer = setInterval(gameLoop, 200);

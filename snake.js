@@ -20,25 +20,25 @@ class Snake {
 
   update() {
     this.direction = this.nextDirection;
-    for (let i = 0; i < this.body.length; i++) {
-      let currentHead = this.body[i];
-      let newHead = { x: currentHead.x + DIRECTIONS[this.direction].x, y: currentHead.y + DIRECTIONS[this.direction].y };
 
-      const collisionDetected = this.checkCollision(newHead);
-      if (collisionDetected) {
-        throw new Error("Collision Detected, Game Over!")
-      }
+    let currentHead = this.body[0];
+    let newHead = { x: currentHead.x + DIRECTIONS[this.direction].x, y: currentHead.y + DIRECTIONS[this.direction].y };
 
-      // Add the new head to the beginning of the snake
-      renderBlank(currentHead.x, currentHead.y);
-      currentHead.x = newHead.x;
-      currentHead.y = newHead.y;
-      // this.body.unshift(newHead);
-
-      // Remove the tail segment
-      // this.body.pop();
-      // this.head = newHead;
+    const collisionDetected = this.checkCollision(newHead);
+    if (collisionDetected) {
+      throw new Error("Collision Detected, Game Over!")
     }
+
+    for (let i = this.body.length - 1; i > 0; i--) {
+      renderBlank(this.body[i].x, this.body[i].y);
+      this.body[i].x = this.body[i - 1].x;
+      this.body[i].y = this.body[i - 1].y;
+    }
+
+    renderBlank(currentHead.x, currentHead.y);
+    currentHead.x = newHead.x;
+    currentHead.y = newHead.y;
+
 
     this.renderSnake();
   }
@@ -50,12 +50,12 @@ class Snake {
     return false;
   }
 
-  // TODO: Modify for rendering every part of the snake
   renderSnake() {
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "white"
+    ctx.fillStyle = "white";
     for (let part of this.body) {
       ctx.fillRect(part.x * 50 + 1, part.y * 50 + 1, gridSize - 2, gridSize - 2);
     }
+
   }
 }
