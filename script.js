@@ -69,7 +69,6 @@ checkFoodCollision = () => {
   return false;
 }
 
-
 gameLoop = () => {
   try {
     snake.update();

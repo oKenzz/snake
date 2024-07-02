@@ -24,8 +24,9 @@ class Snake {
     let currentHead = this.body[0];
     let newHead = { x: currentHead.x + DIRECTIONS[this.direction].x, y: currentHead.y + DIRECTIONS[this.direction].y };
 
-    const collisionDetected = this.checkCollision(newHead);
-    if (collisionDetected) {
+    const wallCollision = this.checkCollision(newHead);
+    const selfCollision = this.checkSelfCollision(newHead);
+    if (wallCollision || selfCollision) {
       throw new Error("Collision Detected, Game Over!")
     }
 
@@ -50,8 +51,13 @@ class Snake {
     return false;
   }
 
-  checkSelfCollision() {
-    // TODO:
+  checkSelfCollision(newHead) {
+    for (let part of this.body) {
+      if (newHead.x == part.x && newHead.y == part.y) {
+        return true;
+      }
+    }
+    return false;
   }
 
   renderSnake() {
