@@ -7,6 +7,9 @@ const DIRECTIONS = {
   LEFT: { x: -1, y: 0 }
 }
 
+let snake;
+let food;
+
 const setupCanvas = () => {
   canvas.setAttribute("width", "600");
   canvas.setAttribute("height", "600");
@@ -59,6 +62,11 @@ const renderBlank = (row, col) => {
   ctx.clearRect(row * 50 + 1, col * 50 + 1, gridSize - 2, gridSize - 2);
 }
 
+const initializeEntities = () => {
+  snake = new Snake(1, 5);
+  food = new Food(7, 5);
+}
+
 gameLoop = () => {
   try {
     snake.update();
@@ -69,9 +77,7 @@ gameLoop = () => {
 }
 
 setupCanvas();
+initializeEntities();
 setupEventListeners();
-const snake = new Snake(1, 3);
-const food = new Food(7, 3);
-
 
 const timer = setInterval(gameLoop, 500);
