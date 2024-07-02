@@ -11,6 +11,10 @@ class Snake {
     // TODO:
   }
 
+  setDirection(direction) {
+    this.direction = direction;
+  }
+
   grow() {
     // TODO:
   }
