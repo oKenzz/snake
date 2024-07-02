@@ -10,6 +10,8 @@ const DIRECTIONS = {
 let snake;
 let food;
 
+let timer;
+
 // TODO: Point system
 
 const setupCanvas = () => {
@@ -37,6 +39,7 @@ const setupCanvas = () => {
 
 const setupEventListeners = () => {
   document.addEventListener("keypress", (e) => setDirection(e))
+  document.addEventListener("keypress", (e) => restart(e))
 }
 
 const setDirection = (e) => {
@@ -113,8 +116,18 @@ const gameLoop = () => {
   }
 }
 
-setupCanvas();
-initializeEntities();
-setupEventListeners();
+const start = () => {
+  setupCanvas();
+  initializeEntities();
+  setupEventListeners();
+  timer = setInterval(gameLoop, 115);
+}
 
-const timer = setInterval(gameLoop, 175);
+const restart = (e) => {
+  if (e.code == "Space") {
+    clearInterval(timer);
+    start();
+  }
+}
+
+start();
