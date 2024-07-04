@@ -131,4 +131,7 @@ const restart = (e) => {
   }
 }
 
+
+// TODO: Create function getState();
+
 start();
