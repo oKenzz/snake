@@ -131,7 +131,93 @@ const restart = (e) => {
   }
 }
 
+const setSnakeDirection = () => {
+  let snakeUp = 0;
+  let snakeRight = 0;
+  let snakeDown = 0;
+  let snakeLeft = 0;
 
+  switch (snake.direction) {
+    case "UP":
+      snakeUp = 1;
+      break;
+    case "RIGHT":
+      snakeRight = 1;
+      break;
+    case "DOWN":
+      snakeDown = 1;
+      break;
+    case "LEFT":
+      snakeLeft = 1;
+      break;
+    default:
+      break;
+  }
+  return [snakeUp, snakeRight, snakeDown, snakeLeft];
+}
+
+const checkFoodClose = () => {
+  let foodUp = 0;
+  let foodRight = 0;
+  let foodDown = 0;
+  let foodLeft = 0;
+
+
+  const dx = snake.head.x - food.x;
+  const dy = snake.head.y - food.y;
+
+  switch (dx) {
+    case 1:
+      foodLeft = 1;
+      break;
+    case -1:
+      foodRight = 1;
+      break;
+    default:
+      break;
+  }
+
+  switch (dy) {
+    case 1:
+      foodUp = 1;
+      break;
+    case -1:
+      foodDown = 1;
+      break;
+    default:
+      break;
+  }
+
+  return [foodUp, foodRight, foodDown, foodLeft];
+}
+
+const distanceToFood = () => {
+  const dx = Math.abs(snake.head.x - food.x);
+  const dy = Math.abs(snake.head.y - food.y);
+
+  const distance = Math.sqrt(dx ** 2 + dy ** 2);
+
+  return distance;
+}
+
+
+// STATE = [DANGER LEFT, DANGER FORWARD, DANGER RIGHT, SNAKE UP, SNAKE RIGHT, SNAKE DOWN, SNAKE LEFT, SNAKE POSITION, FOOD UP, FOOD RIGHT, FOOD DOWN, FOOD LEFT, FOOD POSITION, FOOD DISTANCE]
 // TODO: Create function getState();
+const getState = () => {
+  let dangerLeft = 0;
+  let dangerForward = 0;
+  let dangerRight = 0;
+  let headPosition = [snake.head.x, snake.head.y];
+  let foodPosition = [food.x, food.y];
+  let foodDistance = 0;
+
+
+
+
+
+
+
+  return state;
+}
 
 start();
