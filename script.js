@@ -156,36 +156,25 @@ const setSnakeDirection = () => {
   return [snakeUp, snakeRight, snakeDown, snakeLeft];
 }
 
-const checkFoodClose = () => {
+const checkFoodProximity = () => {
   let foodUp = 0;
   let foodRight = 0;
   let foodDown = 0;
   let foodLeft = 0;
 
-
   const dx = snake.head.x - food.x;
   const dy = snake.head.y - food.y;
 
-  switch (dx) {
-    case 1:
-      foodLeft = 1;
-      break;
-    case -1:
-      foodRight = 1;
-      break;
-    default:
-      break;
+  if (dx == 1) {
+    foodLeft = 1;
+  } else if (dx == -1) {
+    foodRight = 1;
   }
 
-  switch (dy) {
-    case 1:
-      foodUp = 1;
-      break;
-    case -1:
-      foodDown = 1;
-      break;
-    default:
-      break;
+  if (dy == 1) {
+    foodUp = 1;
+  } else if (dy == -1) {
+    foodDown = 1;
   }
 
   return [foodUp, foodRight, foodDown, foodLeft];
@@ -200,24 +189,58 @@ const distanceToFood = () => {
   return distance;
 }
 
-
-// STATE = [DANGER LEFT, DANGER FORWARD, DANGER RIGHT, SNAKE UP, SNAKE RIGHT, SNAKE DOWN, SNAKE LEFT, SNAKE POSITION, FOOD UP, FOOD RIGHT, FOOD DOWN, FOOD LEFT, FOOD POSITION, FOOD DISTANCE]
-// TODO: Create function getState();
-const getState = () => {
-  let dangerLeft = 0;
-  let dangerForward = 0;
+const checkDanger = () => {
+  let dangerUp = 0;
   let dangerRight = 0;
-  let headPosition = [snake.head.x, snake.head.y];
-  let foodPosition = [food.x, food.y];
-  let foodDistance = 0;
+  let dangerDown = 0;
+  let dangerLeft = 0;
+  const head = snake.head;
 
+  if (head.x == 0) {
+    dangerUp = 1;
+  } else if (head.x == 11) {
+    dangerDown = 1;
+  } else if (head.y == 0) {
+    dangerLeft = 1;
+  } else if (head.y == 11) {
+    dangerRight = 1;
+  }
 
+  for (let part of snake.body) {
+    const dx = head.x - part.x;
+    const dy = head.y - part.y;
 
+    if (dx == 1) {
+      dangerLeft = 1;
+    } else if (dx == -1) {
+      dangerRight = 1;
+    }
 
+    if (dy == 1) {
+      dangerUp = 1;
+    } else if (dy == -1) {
+      dangerDown = 1;
+    }
+  }
 
+  return [dangerUp, dangerRight, dangerDown, dangerLeft];
+}
 
+const getState = () => {
+  const dangers = checkDanger();
+  const snakeDirections = setSnakeDirection();
+  const foodProximity = checkFoodProximity();
+  const headPosition = [snake.head.x, snake.head.y];
+  const foodPosition = [food.x, food.y];
+  const foodDistance = distanceToFood();
+
+  const state = dangers.concat(snakeDirections, foodProximity);
+  state.push(headPosition);
+  state.push(foodPosition);
+  state.push(foodDistance);
 
   return state;
 }
 
 start();
+getState();
