@@ -100,17 +100,15 @@ const spawnFood = () => {
 }
 
 const gameLoop = () => {
-  try {
-    snake.update();
-    foodCollisionDetected = checkFoodCollision();
-    if (foodCollisionDetected) {
-      points += 1;
-      console.log(points);
-      snake.grow();
-      spawnFood();
-    }
-  } catch (error) {
-    console.log(error.message);
+  const collision = snake.update();
+  foodCollisionDetected = checkFoodCollision();
+  if (foodCollisionDetected) {
+    points += 1;
+    console.log(points);
+    snake.grow();
+    spawnFood();
+  }
+  if (collision) {
     clearInterval(timer);
     console.log("You got " + points + " points");
   }
@@ -131,116 +129,4 @@ const restart = (e) => {
   }
 }
 
-const setSnakeDirection = () => {
-  let snakeUp = 0;
-  let snakeRight = 0;
-  let snakeDown = 0;
-  let snakeLeft = 0;
-
-  switch (snake.direction) {
-    case "UP":
-      snakeUp = 1;
-      break;
-    case "RIGHT":
-      snakeRight = 1;
-      break;
-    case "DOWN":
-      snakeDown = 1;
-      break;
-    case "LEFT":
-      snakeLeft = 1;
-      break;
-    default:
-      break;
-  }
-  return [snakeUp, snakeRight, snakeDown, snakeLeft];
-}
-
-const checkFoodProximity = () => {
-  let foodUp = 0;
-  let foodRight = 0;
-  let foodDown = 0;
-  let foodLeft = 0;
-
-  const dx = snake.head.x - food.x;
-  const dy = snake.head.y - food.y;
-
-  if (dx == 1) {
-    foodLeft = 1;
-  } else if (dx == -1) {
-    foodRight = 1;
-  }
-
-  if (dy == 1) {
-    foodUp = 1;
-  } else if (dy == -1) {
-    foodDown = 1;
-  }
-
-  return [foodUp, foodRight, foodDown, foodLeft];
-}
-
-const distanceToFood = () => {
-  const dx = Math.abs(snake.head.x - food.x);
-  const dy = Math.abs(snake.head.y - food.y);
-
-  const distance = Math.sqrt(dx ** 2 + dy ** 2);
-
-  return distance;
-}
-
-const checkDanger = () => {
-  let dangerUp = 0;
-  let dangerRight = 0;
-  let dangerDown = 0;
-  let dangerLeft = 0;
-  const head = snake.head;
-
-  if (head.x == 0) {
-    dangerUp = 1;
-  } else if (head.x == 11) {
-    dangerDown = 1;
-  } else if (head.y == 0) {
-    dangerLeft = 1;
-  } else if (head.y == 11) {
-    dangerRight = 1;
-  }
-
-  for (let part of snake.body) {
-    const dx = head.x - part.x;
-    const dy = head.y - part.y;
-
-    if (dx == 1) {
-      dangerLeft = 1;
-    } else if (dx == -1) {
-      dangerRight = 1;
-    }
-
-    if (dy == 1) {
-      dangerUp = 1;
-    } else if (dy == -1) {
-      dangerDown = 1;
-    }
-  }
-
-  return [dangerUp, dangerRight, dangerDown, dangerLeft];
-}
-
-const getState = () => {
-  const dangers = checkDanger();
-  const snakeDirections = setSnakeDirection();
-  const foodProximity = checkFoodProximity();
-  const headPosition = [snake.head.x, snake.head.y];
-  const foodPosition = [food.x, food.y];
-  const foodDistance = distanceToFood();
-
-  const state = dangers.concat(snakeDirections, foodProximity);
-  state.push(headPosition);
-  state.push(foodPosition);
-  state.push(foodDistance);
-
-  return state;
-}
-
 start();
-getState();

@@ -11,3 +11,4 @@ class Food {
     ctx.fillRect(this.x * 50 + 1, this.y * 50 + 1, gridSize - 2, gridSize - 2);
   }
 }
+

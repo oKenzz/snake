@@ -9,7 +9,9 @@ class Snake {
   }
 
   setDirection(direction) {
-    this.nextDirection = direction;
+    if (!(this.direction == "UP" && direction == "DOWN" || this.direction == "RIGHT" && direction == "LEFT" || this.direction == "DOWN" && direction == "UP" || this.direction == "LEFT" && direction == "RIGHT")) {
+      this.nextDirection = direction;
+    }
   }
 
   grow() {
@@ -27,8 +29,11 @@ class Snake {
     const wallCollision = this.checkCollision(newHead);
     const selfCollision = this.checkSelfCollision(newHead);
     if (wallCollision || selfCollision) {
-      throw new Error("Collision Detected, Game Over!")
+      return true;
     }
+    // if (wallCollision || selfCollision) {
+    //   throw new Error("Collision Detected, Game Over!")
+    // }
 
     for (let i = this.body.length - 1; i > 0; i--) {
       renderBlank(this.body[i].x, this.body[i].y);
@@ -42,6 +47,7 @@ class Snake {
 
 
     this.renderSnake();
+    return false;
   }
 
   checkCollision(newHead) {
