@@ -3,13 +3,14 @@ import Snake from "./snake.js";
 import { GRID_SIZE, CANVAS } from "./constants.js";
 
 export default class Game {
-  // Pass in different arguments such as speed, canvas size, game modes?
   constructor() {
     this.setup();
     this.snake = new Snake(1, 5);
     this.food = this.spawnFood();
     this.points = 0;
-    this.speed = 115;
+    this.speed = 105;
+    this.currentSpeed = this.speed;
+    this.maxSpeed = 90;
     this.lastTime = performance.now();
     this.gameOver = false;
     requestAnimationFrame(() => this.gameLoop())
@@ -57,7 +58,7 @@ export default class Game {
     }
     const currentTime = performance.now();
     const deltaTime = currentTime - this.lastTime;
-    if (deltaTime > this.speed) {
+    if (deltaTime > this.currentSpeed) {
       const collision = this.snake.update();
       const foodCollisionDetected = this.checkFoodCollision();
       if (foodCollisionDetected) {
@@ -65,6 +66,9 @@ export default class Game {
         console.log(this.points);
         this.snake.grow();
         this.food = this.spawnFood();
+        if (this.currentSpeed > this.maxSpeed) {
+          this.currentSpeed -= 1;
+        }
       }
       if (collision) {
         this.gameOver = true;
@@ -97,6 +101,7 @@ export default class Game {
       this.setupCanvas();
       this.snake = new Snake(1, 5);
       this.food = this.spawnFood();
+      this.currentSpeed = this.speed;
       this.points = 0;
       this.gameOver = false;
       requestAnimationFrame(() => this.gameLoop())
