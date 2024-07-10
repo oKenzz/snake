@@ -1,4 +1,7 @@
-class Snake {
+import { GRID_SIZE, CANVAS, DIRECTIONS } from "./constants.js";
+import { renderBlank } from "./helper.js";
+
+export default class Snake {
   constructor(x, y) {
     this.direction = "RIGHT";
     this.nextDirection = "RIGHT";
@@ -23,7 +26,7 @@ class Snake {
   update() {
     this.direction = this.nextDirection;
 
-    let currentHead = this.body[0];
+    let currentHead = this.head;
     let newHead = { x: currentHead.x + DIRECTIONS[this.direction].x, y: currentHead.y + DIRECTIONS[this.direction].y };
 
     const wallCollision = this.checkCollision(newHead);
@@ -31,17 +34,14 @@ class Snake {
     if (wallCollision || selfCollision) {
       return true;
     }
-    // if (wallCollision || selfCollision) {
-    //   throw new Error("Collision Detected, Game Over!")
-    // }
 
     for (let i = this.body.length - 1; i > 0; i--) {
-      renderBlank(this.body[i].x, this.body[i].y);
+      renderBlank(this.body[i].x, this.body[i].y, CANVAS, GRID_SIZE);
       this.body[i].x = this.body[i - 1].x;
       this.body[i].y = this.body[i - 1].y;
     }
 
-    renderBlank(currentHead.x, currentHead.y);
+    renderBlank(currentHead.x, currentHead.y, CANVAS, GRID_SIZE);
     currentHead.x = newHead.x;
     currentHead.y = newHead.y;
 
@@ -67,10 +67,10 @@ class Snake {
   }
 
   renderSnake() {
-    const ctx = canvas.getContext("2d");
+    const ctx = CANVAS.getContext("2d");
     ctx.fillStyle = "white";
     for (let part of this.body) {
-      ctx.fillRect(part.x * 50 + 1, part.y * 50 + 1, gridSize - 2, gridSize - 2);
+      ctx.fillRect(part.x * 50 + 1, part.y * 50 + 1, GRID_SIZE - 2, GRID_SIZE - 2);
     }
   }
 }

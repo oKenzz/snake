@@ -1,11 +1,6 @@
-const canvas = document.getElementById('board');
-const gridSize = 50;
-const DIRECTIONS = {
-  UP: { x: 0, y: -1 },
-  RIGHT: { x: 1, y: 0 },
-  DOWN: { x: 0, y: 1 },
-  LEFT: { x: -1, y: 0 }
-}
+import Food from "./food.js";
+import Snake from "./snake.js";
+import { GRID_SIZE, CANVAS } from "./constants.js";
 
 let snake;
 let food;
@@ -14,24 +9,24 @@ let points = 0;
 let timer;
 
 const setupCanvas = () => {
-  canvas.setAttribute("width", "600");
-  canvas.setAttribute("height", "600");
-  const rows = canvas.height / gridSize;
-  const columns = canvas.width / gridSize;
-  const ctx = canvas.getContext("2d");
+  CANVAS.setAttribute("width", "600");
+  CANVAS.setAttribute("height", "600");
+  const rows = CANVAS.height / GRID_SIZE;
+  const columns = CANVAS.width / GRID_SIZE;
+  const ctx = CANVAS.getContext("2d");
   ctx.strokeStyle = '#99FF8E';
 
   for (let row = 0; row < rows; row++) {
     ctx.beginPath();
-    ctx.moveTo(0, row * gridSize);
-    ctx.lineTo(canvas.width, row * gridSize);
+    ctx.moveTo(0, row * GRID_SIZE);
+    ctx.lineTo(CANVAS.width, row * GRID_SIZE);
     ctx.stroke();
   }
 
   for (let column = 0; column < columns; column++) {
     ctx.beginPath();
-    ctx.moveTo(column * gridSize, 0);
-    ctx.lineTo(column * gridSize, canvas.height);
+    ctx.moveTo(column * GRID_SIZE, 0);
+    ctx.lineTo(column * GRID_SIZE, CANVAS.height);
     ctx.stroke();
   }
 };
@@ -42,21 +37,15 @@ const setupEventListeners = () => {
 }
 
 const setDirection = (e) => {
-  if (e.key == "w" && snake.direction != "DOWN") {
+  if (e.key == "w") {
     snake.setDirection("UP");
-  } else if (e.key == "a" && snake.direction != "RIGHT") {
+  } else if (e.key == "a") {
     snake.setDirection("LEFT");
-  } else if (e.key == "s" && snake.direction != "UP") {
+  } else if (e.key == "s") {
     snake.setDirection("DOWN");
-  } else if (e.key == "d" && snake.direction != "LEFT") {
+  } else if (e.key == "d") {
     snake.setDirection("RIGHT");
   }
-}
-
-const renderBlank = (x, y) => {
-  const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "black"
-  ctx.clearRect(x * 50 + 1, y * 50 + 1, gridSize - 2, gridSize - 2);
 }
 
 const initializeEntities = () => {
@@ -72,8 +61,8 @@ const checkFoodCollision = () => {
 }
 
 const generateCoordinates = () => {
-  const rows = canvas.height / gridSize;
-  const columns = canvas.width / gridSize;
+  const rows = CANVAS.height / GRID_SIZE;
+  const columns = CANVAS.width / GRID_SIZE;
   const allCoordinates = new Set();
   for (let row = 0; row < rows; row++) {
     for (let column = 0; column < columns; column++) {
@@ -101,7 +90,7 @@ const spawnFood = () => {
 
 const gameLoop = () => {
   const collision = snake.update();
-  foodCollisionDetected = checkFoodCollision();
+  const foodCollisionDetected = checkFoodCollision();
   if (foodCollisionDetected) {
     points += 1;
     console.log(points);

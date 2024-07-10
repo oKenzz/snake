@@ -1,4 +1,6 @@
-class Food {
+import { GRID_SIZE, CANVAS } from "./constants.js";
+
+export default class Food {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -6,9 +8,9 @@ class Food {
   }
 
   renderFood() {
-    const ctx = canvas.getContext("2d");
+    const ctx = CANVAS.getContext("2d");
     ctx.fillStyle = "red"
-    ctx.fillRect(this.x * 50 + 1, this.y * 50 + 1, gridSize - 2, gridSize - 2);
+    ctx.fillRect(this.x * 50 + 1, this.y * 50 + 1, GRID_SIZE - 2, GRID_SIZE - 2);
   }
 }
 
