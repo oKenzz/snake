@@ -9,17 +9,17 @@ export default class Game {
     this.snake = new Snake(1, 5);
     this.food = this.spawnFood();
     this.points = 0;
-    this.timer = setInterval(this.gameLoop, 115);
+    this.timer = setInterval(() => this.gameLoop(), 115);
   }
 
-  checkFoodCollision = () => {
+  checkFoodCollision() {
     if (this.snake.head.x == this.food.x && this.snake.head.y == this.food.y) {
       return true;
     }
     return false;
   }
 
-  generateCoordinates = () => {
+  generateCoordinates() {
     const rows = CANVAS.height / GRID_SIZE;
     const columns = CANVAS.width / GRID_SIZE;
     const allCoordinates = new Set();
@@ -37,7 +37,7 @@ export default class Game {
     return allCoordinates;
   }
 
-  spawnFood = () => {
+  spawnFood() {
     const availableCoordinates = this.generateCoordinates();
     const coordinatesArray = Array.from(availableCoordinates);
 
@@ -47,7 +47,7 @@ export default class Game {
     return new Food(randomX, randomY);
   }
 
-  gameLoop = () => {
+  gameLoop() {
     const collision = this.snake.update();
     const foodCollisionDetected = this.checkFoodCollision();
     if (foodCollisionDetected) {
@@ -62,7 +62,7 @@ export default class Game {
     }
   }
 
-  setDirection = (e) => {
+  setDirection(e) {
     if (e.key == "w") {
       this.snake.setDirection("UP");
     } else if (e.key == "a") {
@@ -74,28 +74,28 @@ export default class Game {
     }
   }
 
-  setupEventListeners = () => {
+  setupEventListeners() {
     document.addEventListener("keypress", (e) => this.setDirection(e))
     document.addEventListener("keypress", (e) => this.restart(e))
   }
 
-  restart = (e) => {
+  restart(e) {
     if (e.code == "Space") {
       this.setupCanvas();
       this.snake = new Snake(1, 5);
       this.food = this.spawnFood();
       this.points = 0;
       clearInterval(this.timer);
-      this.timer = setInterval(this.gameLoop, 115);
+      this.timer = setInterval(() => this.gameLoop(), 115);
     }
   }
 
-  setup = () => {
+  setup() {
     this.setupCanvas();
     this.setupEventListeners();
   }
 
-  setupCanvas = () => {
+  setupCanvas() {
     CANVAS.setAttribute("width", "600");
     CANVAS.setAttribute("height", "600");
     const rows = CANVAS.height / GRID_SIZE;
