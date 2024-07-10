@@ -9,7 +9,10 @@ export default class Game {
     this.snake = new Snake(1, 5);
     this.food = this.spawnFood();
     this.points = 0;
-    this.timer = setInterval(() => this.gameLoop(), 115);
+    this.speed = 115;
+    this.lastTime = performance.now();
+    this.gameOver = false;
+    requestAnimationFrame(() => this.gameLoop())
   }
 
   checkFoodCollision() {
@@ -48,19 +51,29 @@ export default class Game {
   }
 
   gameLoop() {
-    const collision = this.snake.update();
-    const foodCollisionDetected = this.checkFoodCollision();
-    if (foodCollisionDetected) {
-      this.points += 1;
-      console.log(this.points);
-      this.snake.grow();
-      this.food = this.spawnFood();
-    }
-    if (collision) {
-      clearInterval(this.timer);
+    if (this.gameOver) {
       console.log("You got " + this.points + " points");
+      return;
     }
+    const currentTime = performance.now();
+    const deltaTime = currentTime - this.lastTime;
+    if (deltaTime > this.speed) {
+      const collision = this.snake.update();
+      const foodCollisionDetected = this.checkFoodCollision();
+      if (foodCollisionDetected) {
+        this.points += 1;
+        console.log(this.points);
+        this.snake.grow();
+        this.food = this.spawnFood();
+      }
+      if (collision) {
+        this.gameOver = true;
+      }
+      this.lastTime = currentTime;
+    }
+    requestAnimationFrame(() => this.gameLoop())
   }
+
 
   setDirection(e) {
     if (e.key == "w") {
@@ -85,8 +98,8 @@ export default class Game {
       this.snake = new Snake(1, 5);
       this.food = this.spawnFood();
       this.points = 0;
-      clearInterval(this.timer);
-      this.timer = setInterval(() => this.gameLoop(), 115);
+      this.gameOver = false;
+      requestAnimationFrame(() => this.gameLoop())
     }
   }
 
