@@ -2,6 +2,7 @@
   margin: 0px;
   padding: 0px;
   border: 0px;
+  font-family: 'Gill Sans MT';
 }
 
 body {
@@ -15,4 +16,8 @@ body {
 
 #board {
   background-color: black;
+}
+
+#score {
+  font-size: 4em;
 }
