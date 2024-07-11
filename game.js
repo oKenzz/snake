@@ -72,7 +72,6 @@ export default class Game {
       if (foodCollisionDetected) {
         this.points += 1;
         this.updateScore();
-        console.log(this.points);
         this.snake.grow();
         this.food = this.spawnFood();
         if (this.currentSpeed > this.maxSpeed) {
