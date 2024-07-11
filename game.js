@@ -142,7 +142,7 @@ export default class Game {
   }
 
   restart(e) {
-    if (e.code == "Space") {
+    if (e.code == "Space" && this.gameOver == true) {
       this.setupCanvas();
       this.snake = new Snake(3, 5);
       this.food = this.spawnFood();
