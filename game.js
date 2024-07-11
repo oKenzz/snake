@@ -59,8 +59,18 @@ export default class Game {
     SCORE_DISPLAY.textContent = 0;
   }
 
+  showGameOver() {
+    const gameOver = document.getElementById('game-over');
+    gameOver.classList.remove('hidden');
+  }
+
+  hideGameOver() {
+    const gameOver = document.getElementById('game-over');
+    gameOver.classList.add('hidden');
+  }
   gameLoop() {
     if (this.gameOver) {
+      this.showGameOver();
       console.log("You got " + this.points + " points");
       return;
     }
@@ -113,6 +123,7 @@ export default class Game {
       this.points = 0;
       this.gameOver = false;
       this.resetScore();
+      this.hideGameOver();
       requestAnimationFrame(() => this.gameLoop())
     }
   }
