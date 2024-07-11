@@ -114,6 +114,7 @@ export default class Game {
   }
 
   addToBuffer(e) {
+    console.log(e.key);
     if (this.keyBuffer.length > this.maxBufferSize) {
       this.keyBuffer.shift(e.key);
     }
@@ -123,13 +124,13 @@ export default class Game {
   resolveBuffer() {
     if (this.keyBuffer.length > 0) {
       const key = this.keyBuffer.shift();
-      if (key == "w") {
+      if (key == "w" || key == "ArrowUp") {
         this.snake.setDirection("UP");
-      } else if (key == "a") {
+      } else if (key == "a" || key == "ArrowLeft") {
         this.snake.setDirection("LEFT");
-      } else if (key == "s") {
+      } else if (key == "s" || key == "ArrowDown") {
         this.snake.setDirection("DOWN");
-      } else if (key == "d") {
+      } else if (key == "d" || key == "ArrowRight") {
         this.snake.setDirection("RIGHT");
       }
     }
