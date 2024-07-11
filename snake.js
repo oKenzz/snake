@@ -8,6 +8,8 @@ export default class Snake {
     this.body = [];
     this.head = { x, y };
     this.body.push(this.head);
+    this.body.push({ x: 2, y: 5 });
+    this.body.push({ x: 1, y: 5 });
     this.renderSnake();
   }
 

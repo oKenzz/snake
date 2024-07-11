@@ -5,7 +5,7 @@ import { GRID_SIZE, CANVAS, } from "./constants.js";
 export default class Game {
   constructor() {
     this.setup();
-    this.snake = new Snake(1, 5);
+    this.snake = new Snake(3, 5);
     this.food = this.spawnFood();
     this.points = 0;
     this.speed = 105;
@@ -144,7 +144,7 @@ export default class Game {
   restart(e) {
     if (e.code == "Space") {
       this.setupCanvas();
-      this.snake = new Snake(1, 5);
+      this.snake = new Snake(3, 5);
       this.food = this.spawnFood();
       this.currentSpeed = this.speed;
       this.points = 0;
