@@ -1,6 +1,6 @@
 import Food from "./food.js";
 import Snake from "./snake.js";
-import { GRID_SIZE, CANVAS } from "./constants.js";
+import { GRID_SIZE, CANVAS, SCORE_DISPLAY } from "./constants.js";
 
 export default class Game {
   constructor() {
@@ -51,6 +51,14 @@ export default class Game {
     return new Food(randomX, randomY);
   }
 
+  updateScore() {
+    SCORE_DISPLAY.textContent = this.points;
+  }
+
+  resetScore() {
+    SCORE_DISPLAY.textContent = 0;
+  }
+
   gameLoop() {
     if (this.gameOver) {
       console.log("You got " + this.points + " points");
@@ -63,6 +71,7 @@ export default class Game {
       const foodCollisionDetected = this.checkFoodCollision();
       if (foodCollisionDetected) {
         this.points += 1;
+        this.updateScore();
         console.log(this.points);
         this.snake.grow();
         this.food = this.spawnFood();
@@ -104,6 +113,7 @@ export default class Game {
       this.currentSpeed = this.speed;
       this.points = 0;
       this.gameOver = false;
+      this.resetScore();
       requestAnimationFrame(() => this.gameLoop())
     }
   }
