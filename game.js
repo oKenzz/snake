@@ -70,6 +70,17 @@ export default class Game {
     const gameOver = document.getElementById('game-over');
     gameOver.classList.add('hidden');
   }
+
+  playEatAudio() {
+    const audio = document.getElementById('eat-audio');
+    audio.play();
+  }
+
+  playCollisionAudio() {
+    const audio = document.getElementById('collision-audio');
+    audio.play();
+  }
+
   gameLoop() {
     if (this.gameOver) {
       this.showGameOver();
@@ -81,6 +92,7 @@ export default class Game {
       const collision = this.snake.update();
       const foodCollisionDetected = this.checkFoodCollision();
       if (foodCollisionDetected) {
+        this.playEatAudio();
         this.points += 1;
         this.updateScore();
         this.snake.grow();
@@ -90,6 +102,7 @@ export default class Game {
         }
       }
       if (collision) {
+        this.playCollisionAudio();
         this.gameOver = true;
       }
       this.lastTime = currentTime;

@@ -6,4 +6,3 @@ export const DIRECTIONS = {
   DOWN: { x: 0, y: 1 },
   LEFT: { x: -1, y: 0 }
 }
-
