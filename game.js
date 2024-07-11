@@ -71,7 +71,6 @@ export default class Game {
   gameLoop() {
     if (this.gameOver) {
       this.showGameOver();
-      console.log("You got " + this.points + " points");
       return;
     }
     const currentTime = performance.now();
