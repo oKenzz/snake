@@ -1,6 +1,6 @@
 import Food from "./food.js";
 import Snake from "./snake.js";
-import { GRID_SIZE, CANVAS, SCORE_DISPLAY } from "./constants.js";
+import { GRID_SIZE, CANVAS, } from "./constants.js";
 
 export default class Game {
   constructor() {
@@ -52,11 +52,13 @@ export default class Game {
   }
 
   updateScore() {
-    SCORE_DISPLAY.textContent = this.points;
+    const scoreDisplay = document.getElementById('score');
+    scoreDisplay.textContent = this.points;
   }
 
   resetScore() {
-    SCORE_DISPLAY.textContent = 0;
+    const scoreDisplay = document.getElementById('score');
+    scoreDisplay.textContent = 0;
   }
 
   showGameOver() {
