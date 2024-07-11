@@ -11,8 +11,10 @@ export default class Game {
     this.speed = 105;
     this.currentSpeed = this.speed;
     this.maxSpeed = 90;
+    this.maxBufferSize = 2;
     this.lastTime = performance.now();
     this.gameOver = false;
+    this.keyBuffer = [];
     requestAnimationFrame(() => this.gameLoop())
   }
 
@@ -89,6 +91,7 @@ export default class Game {
     const currentTime = performance.now();
     const deltaTime = currentTime - this.lastTime;
     if (deltaTime > this.currentSpeed) {
+      this.resolveBuffer();
       const collision = this.snake.update();
       const foodCollisionDetected = this.checkFoodCollision();
       if (foodCollisionDetected) {
@@ -110,22 +113,31 @@ export default class Game {
     requestAnimationFrame(() => this.gameLoop())
   }
 
+  addToBuffer(e) {
+    if (this.keyBuffer.length > this.maxBufferSize) {
+      this.keyBuffer.shift(e.key);
+    }
+    this.keyBuffer.push(e.key);
+  }
 
-  setDirection(e) {
-    if (e.key == "w") {
-      this.snake.setDirection("UP");
-    } else if (e.key == "a") {
-      this.snake.setDirection("LEFT");
-    } else if (e.key == "s") {
-      this.snake.setDirection("DOWN");
-    } else if (e.key == "d") {
-      this.snake.setDirection("RIGHT");
+  resolveBuffer() {
+    if (this.keyBuffer.length > 0) {
+      const key = this.keyBuffer.shift();
+      if (key == "w") {
+        this.snake.setDirection("UP");
+      } else if (key == "a") {
+        this.snake.setDirection("LEFT");
+      } else if (key == "s") {
+        this.snake.setDirection("DOWN");
+      } else if (key == "d") {
+        this.snake.setDirection("RIGHT");
+      }
     }
   }
 
   setupEventListeners() {
-    document.addEventListener("keypress", (e) => this.setDirection(e))
-    document.addEventListener("keypress", (e) => this.restart(e))
+    document.addEventListener("keydown", (e) => this.addToBuffer(e))
+    document.addEventListener("keydown", (e) => this.restart(e))
   }
 
   restart(e) {
@@ -136,6 +148,7 @@ export default class Game {
       this.currentSpeed = this.speed;
       this.points = 0;
       this.gameOver = false;
+      this.keyBuffer = [];
       this.resetScore();
       this.hideGameOver();
       requestAnimationFrame(() => this.gameLoop())
