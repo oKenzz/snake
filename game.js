@@ -2,7 +2,6 @@ import Food from "./food.js";
 import Snake from "./snake.js";
 import { GRID_SIZE, CANVAS, } from "./constants.js";
 
-// TODO: Start game on direction input, wait till the player is ready
 // TODO: Setup possibility for different configs
 // TODO: Save high score locally, cookies???
 export default class Game {
@@ -15,11 +14,12 @@ export default class Game {
     this.maxSpeed = 100;
     this.currentSpeed = this.speed;
     this.speedIncrease = 2;
-    this.maxBufferSize = 2;
-    this.lastTime = performance.now();
+    this.startGame = false;
     this.gameOver = false;
     this.keyBuffer = [];
-    requestAnimationFrame(() => this.gameLoop())
+    this.maxBufferSize = 2;
+    this.lastTime = performance.now();
+    this.renderGame();
   }
 
   checkFoodCollision() {
@@ -140,11 +140,22 @@ export default class Game {
   }
 
   addToBuffer(e) {
-    if (this.keyBuffer.length > this.maxBufferSize) {
-      this.keyBuffer.shift(e.key);
+    if (this.startGame) {
+      if (this.keyBuffer.length > this.maxBufferSize) {
+        this.keyBuffer.shift(e.key);
+      }
+      this.keyBuffer.push(e.key);
     }
-    this.keyBuffer.push(e.key);
   }
+
+  start(e) {
+    if (!this.startGame && (e.key == "w" || e.key == "d" || e.key == "s" || e.key == "ArrowUp" || e.key == "ArrowRight" || e.key == "ArrowDown")) {
+      this.startGame = true;
+      this.addToBuffer(e);
+      requestAnimationFrame(() => this.gameLoop())
+    }
+  }
+
 
   resolveBuffer() {
     if (this.keyBuffer.length > 0) {
@@ -162,8 +173,9 @@ export default class Game {
   }
 
   setupEventListeners() {
-    document.addEventListener("keydown", (e) => this.addToBuffer(e))
-    document.addEventListener("keydown", (e) => this.restart(e))
+    document.addEventListener("keydown", (e) => this.addToBuffer(e));
+    document.addEventListener("keydown", (e) => this.start(e));
+    document.addEventListener("keydown", (e) => this.restart(e));
   }
 
   restart(e) {
@@ -173,11 +185,12 @@ export default class Game {
       this.food = this.spawnFood();
       this.currentSpeed = this.speed;
       this.points = 0;
+      this.startGame = false;
       this.gameOver = false;
       this.keyBuffer = [];
       this.resetScore();
       this.hideGameOver();
-      requestAnimationFrame(() => this.gameLoop())
+      this.renderGame();
     }
   }
 
