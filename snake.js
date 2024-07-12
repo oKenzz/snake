@@ -1,5 +1,4 @@
 import { GRID_SIZE, CANVAS, DIRECTIONS } from "./constants.js";
-import { renderBlank } from "./helper.js";
 
 export default class Snake {
   constructor(x, y) {
@@ -25,7 +24,6 @@ export default class Snake {
     this.body.push(newTail);
   }
 
-  // TODO: Separate gameLoop/logic and rendering
   update() {
     this.direction = this.nextDirection;
 
