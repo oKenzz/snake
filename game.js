@@ -66,12 +66,16 @@ export default class Game {
 
   showGameOver() {
     const gameOver = document.getElementById('game-over');
+    const restartText = document.getElementById('restart-text')
     gameOver.classList.remove('hidden');
+    restartText.classList.remove('hidden');
   }
 
   hideGameOver() {
     const gameOver = document.getElementById('game-over');
+    const restartText = document.getElementById('restart-text')
     gameOver.classList.add('hidden');
+    restartText.classList.add('hidden');
   }
 
   playEatAudio() {

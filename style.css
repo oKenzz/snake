@@ -18,9 +18,18 @@ body {
   display: none;
 }
 
-#game-over {
+.game-over-container {
   position: absolute;
-  font-size: 75px;
+  text-align: center;
+}
+
+#game-over {
+  font-size: 5rem;
+  color: red;
+}
+
+#restart-text {
+  font-size: 1.5rem;
   color: red;
 }
 
