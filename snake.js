@@ -25,6 +25,7 @@ export default class Snake {
     this.body.push(newTail);
   }
 
+  // TODO: Separate gameLoop/logic and rendering
   update() {
     this.direction = this.nextDirection;
 
@@ -38,17 +39,13 @@ export default class Snake {
     }
 
     for (let i = this.body.length - 1; i > 0; i--) {
-      renderBlank(this.body[i].x, this.body[i].y, CANVAS, GRID_SIZE);
       this.body[i].x = this.body[i - 1].x;
       this.body[i].y = this.body[i - 1].y;
     }
 
-    renderBlank(currentHead.x, currentHead.y, CANVAS, GRID_SIZE);
     currentHead.x = newHead.x;
     currentHead.y = newHead.y;
 
-
-    this.renderSnake();
     return false;
   }
 

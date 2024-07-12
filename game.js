@@ -8,9 +8,10 @@ export default class Game {
     this.snake = new Snake(3, 5);
     this.food = this.spawnFood();
     this.points = 0;
-    this.speed = 105;
+    this.speed = 140;
+    this.maxSpeed = 100;
     this.currentSpeed = this.speed;
-    this.maxSpeed = 90;
+    this.speedIncrease = 2;
     this.maxBufferSize = 2;
     this.lastTime = performance.now();
     this.gameOver = false;
@@ -75,11 +76,13 @@ export default class Game {
 
   playEatAudio() {
     const audio = document.getElementById('eat-audio');
+    audio.volume = 0.2;
     audio.play();
   }
 
   playCollisionAudio() {
     const audio = document.getElementById('collision-audio');
+    audio.volume = 0.2;
     audio.play();
   }
 
@@ -101,7 +104,8 @@ export default class Game {
         this.snake.grow();
         this.food = this.spawnFood();
         if (this.currentSpeed > this.maxSpeed) {
-          this.currentSpeed -= 1;
+          this.currentSpeed -= this.speedIncrease;
+          console.log(this.currentSpeed);
         }
       }
       if (collision) {
@@ -109,12 +113,20 @@ export default class Game {
         this.gameOver = true;
       }
       this.lastTime = currentTime;
+      this.renderGame();
     }
     requestAnimationFrame(() => this.gameLoop())
   }
 
+  renderGame() {
+    const ctx = CANVAS.getContext('2d');
+    ctx.clearRect(0, 0, CANVAS.width, CANVAS.height);
+    this.createGrid();
+    this.snake.renderSnake();
+    this.food.renderFood();
+  }
+
   addToBuffer(e) {
-    console.log(e.key);
     if (this.keyBuffer.length > this.maxBufferSize) {
       this.keyBuffer.shift(e.key);
     }
@@ -143,7 +155,7 @@ export default class Game {
 
   restart(e) {
     if (e.code == "Space" && this.gameOver == true) {
-      this.setupCanvas();
+      this.createGrid();
       this.snake = new Snake(3, 5);
       this.food = this.spawnFood();
       this.currentSpeed = this.speed;
@@ -157,11 +169,11 @@ export default class Game {
   }
 
   setup() {
-    this.setupCanvas();
+    this.createGrid();
     this.setupEventListeners();
   }
 
-  setupCanvas() {
+  createGrid() {
     CANVAS.setAttribute("width", "600");
     CANVAS.setAttribute("height", "600");
     const rows = CANVAS.height / GRID_SIZE;
