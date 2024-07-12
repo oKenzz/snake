@@ -1,6 +1,6 @@
 import Food from "./food.js";
 import Snake from "./snake.js";
-import { GRID_SIZE, CANVAS, } from "./constants.js";
+import { GRID_SIZE, CANVAS, INPUT_DIRECTIONS } from "./constants.js";
 
 // TODO: Setup possibility for different configs
 // TODO: Save high score locally, cookies???
@@ -149,9 +149,10 @@ export default class Game {
   }
 
   start(e) {
-    if (!this.startGame && (e.key == "w" || e.key == "d" || e.key == "s" || e.key == "ArrowUp" || e.key == "ArrowRight" || e.key == "ArrowDown")) {
+    const direction = INPUT_DIRECTIONS[e.key]
+    console.log(direction);
+    if (!this.startGame && direction != "LEFT" && direction != undefined) {
       this.startGame = true;
-      this.addToBuffer(e);
       requestAnimationFrame(() => this.gameLoop())
     }
   }
@@ -160,21 +161,16 @@ export default class Game {
   resolveBuffer() {
     if (this.keyBuffer.length > 0) {
       const key = this.keyBuffer.shift();
-      if (key == "w" || key == "ArrowUp") {
-        this.snake.setDirection("UP");
-      } else if (key == "a" || key == "ArrowLeft") {
-        this.snake.setDirection("LEFT");
-      } else if (key == "s" || key == "ArrowDown") {
-        this.snake.setDirection("DOWN");
-      } else if (key == "d" || key == "ArrowRight") {
-        this.snake.setDirection("RIGHT");
+      const direction = INPUT_DIRECTIONS[key]
+      if (direction) {
+        this.snake.setDirection(direction)
       }
     }
   }
 
   setupEventListeners() {
-    document.addEventListener("keydown", (e) => this.addToBuffer(e));
     document.addEventListener("keydown", (e) => this.start(e));
+    document.addEventListener("keydown", (e) => this.addToBuffer(e));
     document.addEventListener("keydown", (e) => this.restart(e));
   }
 

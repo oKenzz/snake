@@ -12,3 +12,13 @@ export const OPPOSITE_DIRECTION = {
   "DOWN": "UP",
   "LEFT": "RIGHT"
 };
+export const INPUT_DIRECTIONS = {
+  "w": "UP",
+  "d": "RIGHT",
+  "s": "DOWN",
+  "a": "LEFT",
+  "ArrowUp": "UP",
+  "ArrowRight": "RIGHT",
+  "ArrowDown": "DOWN",
+  "ArrowLeft": "LEFT"
+}
