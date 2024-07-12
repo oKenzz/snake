@@ -214,4 +214,12 @@ export default class Game {
       ctx.stroke();
     }
   }
+
+  changeSpeed(speed, maxSpeed) {
+    this.speed = speed;
+    this.maxSpeed = maxSpeed;
+    this.gameOver = true;
+    this.restart({ code: "Space" });
+  }
+
 }

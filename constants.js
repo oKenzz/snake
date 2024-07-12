@@ -23,7 +23,7 @@ export const INPUT_DIRECTIONS = {
   "ArrowLeft": "LEFT"
 }
 export const SPEED = {
-  SLOW: { speed: 160, maxSpeed: 130 },
-  NORMAL: { speed: 140, maxSpeed: 110 },
-  FAST: { speed: 120, maxSpeed: 90 }
+  "SLOW": { speed: 160, maxSpeed: 130 },
+  "NORMAL": { speed: 140, maxSpeed: 110 },
+  "FAST": { speed: 120, maxSpeed: 90 }
 }
