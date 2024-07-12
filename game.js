@@ -140,7 +140,7 @@ export default class Game {
   }
 
   addToBuffer(e) {
-    if (this.startGame) {
+    if (this.startGame && e.key != this.keyBuffer[this.keyBuffer.length - 1]) {
       if (this.keyBuffer.length > this.maxBufferSize) {
         this.keyBuffer.shift(e.key);
       }
