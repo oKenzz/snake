@@ -1,4 +1,4 @@
-import { GRID_SIZE, CANVAS, DIRECTIONS } from "./constants.js";
+import { GRID_SIZE, CANVAS, DIRECTIONS, OPPOSITE_DIRECTION } from "./constants.js";
 
 export default class Snake {
   constructor(x, y) {
@@ -13,7 +13,7 @@ export default class Snake {
   }
 
   setDirection(direction) {
-    if (!(this.direction == "UP" && direction == "DOWN" || this.direction == "RIGHT" && direction == "LEFT" || this.direction == "DOWN" && direction == "UP" || this.direction == "LEFT" && direction == "RIGHT")) {
+    if (!(this.direction == OPPOSITE_DIRECTION[direction])) {
       this.nextDirection = direction;
     }
   }
