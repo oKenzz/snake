@@ -44,7 +44,6 @@ img {
 #settings-modal {
   position: absolute;
   display: none;
-  /* visibility: hidden; */
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -53,7 +52,7 @@ img {
 }
 
 #settings-container {
-  width: 90%;
+  width: 35em;
   height: auto;
   display: grid;
   background-color: lightgray;
