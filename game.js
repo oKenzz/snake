@@ -150,7 +150,6 @@ export default class Game {
 
   start(e) {
     const direction = INPUT_DIRECTIONS[e.key]
-    console.log(direction);
     if (!this.startGame && direction != "LEFT" && direction != undefined) {
       this.startGame = true;
       requestAnimationFrame(() => this.gameLoop())
