@@ -2,16 +2,14 @@ import Food from "./food.js";
 import Snake from "./snake.js";
 import { GRID_SIZE, CANVAS, INPUT_DIRECTIONS } from "./constants.js";
 
-// TODO: Setup possibility for different configs
-// TODO: Save high score locally, cookies???
 export default class Game {
-  constructor() {
+  constructor(speed = 140, maxSpeed = 110) {
     this.setup();
     this.snake = new Snake(3, 5);
     this.food = this.spawnFood();
     this.points = 0;
-    this.speed = 140;
-    this.maxSpeed = 100;
+    this.speed = speed;
+    this.maxSpeed = maxSpeed;
     this.currentSpeed = this.speed;
     this.speedIncrease = 2;
     this.startGame = false;

@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Snake</title>
   <link href="style.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -23,6 +26,23 @@
   <div id="game-over-container">
     <p id="game-over" class="hidden">Game Over</p>
     <p id="restart-text" class="hidden">Press SPACEBAR to restart</p>
+  </div>
+
+  <button type="button" id="settings-button">
+    <img src="settings.png" alt="">
+  </button>
+
+  <div id="settings-modal">
+    <div id="settings-container">
+      <div class="option-container">
+        <h3 class="option-header">Speed</h3>
+        <div id="button-container">
+          <button type="button" class="speed-button">SLOW</button>
+          <button type="button" class="speed-button">NORMAL</button>
+          <button type="button" class="speed-button">FAST</button>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- TODO: Add settings button and settings modal  -->
 

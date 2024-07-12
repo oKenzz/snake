@@ -22,3 +22,8 @@ export const INPUT_DIRECTIONS = {
   "ArrowDown": "DOWN",
   "ArrowLeft": "LEFT"
 }
+export const SPEED = {
+  SLOW: { speed: 160, maxSpeed: 130 },
+  NORMAL: { speed: 140, maxSpeed: 110 },
+  FAST: { speed: 120, maxSpeed: 90 }
+}
