@@ -2,6 +2,9 @@ import Food from "./food.js";
 import Snake from "./snake.js";
 import { GRID_SIZE, CANVAS, } from "./constants.js";
 
+// TODO: Start game on direction input, wait till the player is ready
+// TODO: Setup possibility for different configs
+// TODO: Save high score locally, cookies???
 export default class Game {
   constructor() {
     this.setup();
@@ -65,15 +68,22 @@ export default class Game {
   }
 
   showGameOver() {
+    const container = document.getElementById('game-over-container');
     const gameOver = document.getElementById('game-over');
     const restartText = document.getElementById('restart-text')
+    /* background: rgba(0, 0, 0, 0.55); */
+    container.style.background = 'rgba(0, 0, 0, 0.55'
+    container.classList.add('fade');
     gameOver.classList.remove('hidden');
     restartText.classList.remove('hidden');
   }
 
   hideGameOver() {
+    const container = document.getElementById('game-over-container');
     const gameOver = document.getElementById('game-over');
     const restartText = document.getElementById('restart-text')
+    container.style.background = "transparent"
+    container.classList.remove('fade');
     gameOver.classList.add('hidden');
     restartText.classList.add('hidden');
   }
@@ -109,7 +119,6 @@ export default class Game {
         this.food = this.spawnFood();
         if (this.currentSpeed > this.maxSpeed) {
           this.currentSpeed -= this.speedIncrease;
-          console.log(this.currentSpeed);
         }
       }
       if (collision) {
